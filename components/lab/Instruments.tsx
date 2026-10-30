@@ -4,6 +4,7 @@ import { Activity, Droplets } from 'lucide-react';
 import { accumulatorVolume, RELIEF, type SimState } from '@/lib/simulation';
 export function PressureGauge({ value }: { value: number }) {
   const angle = Math.PI + Math.min(value / 4500, 1) * Math.PI;
+  const reliefAngle = Math.PI + (RELIEF / 4500) * Math.PI;
   return (
     <svg
       viewBox="0 0 150 95"
@@ -18,7 +19,7 @@ export function PressureGauge({ value }: { value: number }) {
         strokeWidth="5"
       />
       <path
-        d="M130 47 A63 63 0 0 1 138 78"
+        d={`M${(75 + Math.cos(reliefAngle) * 63).toFixed(3)} ${(78 + Math.sin(reliefAngle) * 63).toFixed(3)} A63 63 0 0 1 138 78`}
         fill="none"
         stroke="#ff6670"
         strokeWidth="5"
@@ -45,7 +46,7 @@ export function PressureGauge({ value }: { value: number }) {
       <text x="4" y="93" className="diagram-meta">
         0
       </text>
-      <text x="125" y="93" className="diagram-meta">
+      <text x="146" y="93" textAnchor="end" className="diagram-meta">
         4.5k
       </text>
       <text x="75" y="11" textAnchor="middle" className="diagram-meta">

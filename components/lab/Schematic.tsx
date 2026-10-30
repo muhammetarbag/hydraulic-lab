@@ -211,7 +211,7 @@ export function Schematic({ state: s, selected, onSelect, highlight }: Props) {
         className={highlight === 'pressure' ? 'line-highlight' : ''}
       >
         <rect x="440" y="153" width="207" height="43" fill="transparent" />
-        <text x="459" y="166" className="line-label" fill={pressure}>
+        <text x="459" y="191" className="line-label" fill={pressure}>
           PRESSURE MANIFOLD
         </text>
       </g>
