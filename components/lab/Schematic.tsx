@@ -2,7 +2,7 @@
 'use client';
 import type { ReactNode } from 'react';
 import {
-  accumulatorVolume,
+  accumulatorFluid,
   consumerAvailable,
   sourceStatus,
   type ComponentId,
@@ -21,7 +21,7 @@ export function Schematic({ state: s, selected, onSelect, highlight }: Props) {
   const src = sourceStatus(s),
     moving = s.actuatorFlow > 0.001,
     pos = s.positions[s.consumer];
-  const acc = s.failure === 'accumulator' ? 0 : accumulatorVolume(s.pressure);
+  const acc = accumulatorFluid(s);
   const failures: Partial<Record<ComponentId, boolean>> = {
     pump: s.failure === 'main',
     electric: s.failure === 'electric',

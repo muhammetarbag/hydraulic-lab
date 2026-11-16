@@ -303,7 +303,7 @@ export const failures: {
     component: 'accumulator',
     prediction: 'Arızalı akümülatör varken sabit basınç normal görünebilir mi?',
     explanation:
-      'Evet. Sağlam pompa normal basıncı sağlayabilir. Ana pompayı kapattığında tampon enerji olmadığından basıncın daha hızlı düştüğünü görürsün. Bu senaryo kullanılabilir gaz desteği kaybını temsil eder.',
+      'Evet. Sağlam pompa normal basıncı sağlayabilir. Ana pompayı kapattığında tampon enerji olmadığından basıncın daha hızlı düştüğünü görürsün. Bu senaryo kullanılabilir gaz desteği kaybını temsil eder; arıza anında akümülatördeki sıvı orada hapsolur, sisteme geri verilemez.',
     hint: 'Pompa ON/OFF geçişini sağlam akümülatörlü durumla kıyasla.',
   },
   {

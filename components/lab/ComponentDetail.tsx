@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { componentMap } from '@/lib/content';
 import {
-  accumulatorVolume,
+  accumulatorFluid,
   gasPressure,
   sourceStatus,
   type ComponentId,
@@ -24,7 +24,7 @@ export interface DetailProps {
 }
 export function Cutaway({ id, state: s }: Pick<DetailProps, 'id' | 'state'>) {
   const uniqueId = useId().replace(/:/g, '');
-  const acc = s.failure === 'accumulator' ? 0 : accumulatorVolume(s.pressure),
+  const acc = accumulatorFluid(s),
     piston = Number((196 - acc * 174).toFixed(3));
   const pos = s.positions[s.consumer],
     active =
@@ -107,7 +107,8 @@ export function Cutaway({ id, state: s }: Pick<DetailProps, 'id' | 'state'>) {
           Hidrolik sıvı
         </text>
         <text x="202" y="201" className="node-english">
-          {acc.toFixed(2)} L rezerv
+          {acc.toFixed(2)} L{' '}
+          {s.failure === 'accumulator' ? 'hapsolmuş' : 'rezerv'}
         </text>
         <text x="103" y="225" textAnchor="middle" className="symbol-small">
           {s.accFlow > 0.002
