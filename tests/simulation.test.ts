@@ -5,6 +5,7 @@ import {
   stepSimulation,
   applyFailure,
   accumulatorVolume,
+  accumulatorFluid,
   gasPressure,
   consumerAvailable,
   warnings,
@@ -66,6 +67,21 @@ void test('failed accumulator loses support faster than healthy accumulator', ()
     );
   assert.ok(healthy.pressure > failed.pressure + 500);
   assert.equal(gasPressure(failed), 0);
+});
+void test('failed accumulator keeps its trapped fluid in the fluid accounting', () => {
+  const total = (s: SimState) =>
+    s.reservoir +
+    accumulatorFluid(s) +
+    s.pressure * 0.000035 +
+    (s.positions.flight - 0.15) * 0.015;
+  let s = applyFailure(initialState(), 'accumulator');
+  assert.ok(Math.abs(total(s) - 7.5) < 1e-6);
+  assert.ok(accumulatorFluid(s) > 0.5);
+  s = run({ ...s, mainOn: false }, 30);
+  assert.ok(s.pressure < 100);
+  assert.ok(Math.abs(total(s) - 7.5) < 1e-6);
+  s = run({ ...s, mainOn: true, stress: true }, 30);
+  assert.ok(Math.abs(total(s) - 7.5) < 1e-6);
 });
 void test('auxiliary electric pump recovers main-pump failure', () => {
   const s = run(

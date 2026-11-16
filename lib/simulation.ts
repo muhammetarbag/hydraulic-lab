@@ -44,6 +44,13 @@ export function accumulatorVolume(pressure: number): number {
         ),
       );
 }
+/** Gaz ön dolumu kaybolunca ayırıcıyı itecek kuvvet kalmaz: arıza anındaki sıvı
+ * akümülatörde hapsolur. Kullanılamaz ama sıvı hesabında yer alır. */
+export function accumulatorFluid(s: { pressure: number; failure: Failure }) {
+  return s.failure === 'accumulator'
+    ? accumulatorVolume(NOMINAL)
+    : accumulatorVolume(s.pressure);
+}
 export interface SimState {
   pressure: number;
   reservoir: number;
